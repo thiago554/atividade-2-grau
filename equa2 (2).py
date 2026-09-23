@@ -1,4 +1,3 @@
-
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,19 +8,78 @@ from pathlib import Path
 # ========================================
 
 st.set_page_config(
-    page_title="Equação do 2º Grau",
+    page_title="MatFuturo - Equação do 2º Grau",
     page_icon="📈",
     layout="centered"
 )
 
+# ========================================
+# CORES E ESTILO DA ESCOLA
+# ========================================
+
 st.markdown("""
     <style>
-        /* Fundo principal da página */
+
+        /* Fundo principal */
         .stApp {
-            background-color: #0D47A1;
+            background-color: #E8F5E9;
         }
+
+        /* Título principal */
+        h1 {
+            color: #2E7D32 !important;
+            text-align: center;
+        }
+
+        /* Subtítulos */
+        h2, h3 {
+            color: #2E7D32 !important;
+        }
+
+        /* Textos */
+        p, label {
+            color: #1B1B1B !important;
+        }
+
+        /* Botão */
+        .stButton > button {
+            background-color: #43A047;
+            color: white;
+            border-radius: 10px;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        .stButton > button:hover {
+            background-color: #2E7D32;
+            color: white;
+        }
+
     </style>
 """, unsafe_allow_html=True)
+
+
+# ========================================
+# CABEÇALHO
+# ========================================
+
+st.markdown(
+    "<h1>📈 MatFuturo</h1>",
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    "<h3 style='text-align:center;'>App - Equação do 2º Grau</h3>",
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    "<p style='text-align:center;'>Cores da escola: verde</p>",
+    unsafe_allow_html=True
+)
+
 
 # ========================================
 # CAMINHO DA IMAGEM
@@ -31,6 +89,7 @@ PASTA_APP = Path(__file__).parent
 CAMINHO_LOGO = PASTA_APP / "unnamed.jpg"
 
 if CAMINHO_LOGO.exists():
+
     col1, col2, col3 = st.columns([1, 2, 1])
 
     with col2:
@@ -38,15 +97,16 @@ if CAMINHO_LOGO.exists():
             str(CAMINHO_LOGO),
             use_container_width=True
         )
+
 else:
     st.warning("A imagem unnamed.jpg não foi encontrada. ⚠️")
 
 
 # ========================================
-# TÍTULO
+# TÍTULO DA CALCULADORA
 # ========================================
 
-st.title("📈 Equação do 2º Grau")
+st.title("Equação do 2º Grau")
 
 st.write("Equação no formato:")
 
@@ -100,7 +160,6 @@ if st.button("Calcular", use_container_width=True):
 
         st.subheader("Equação")
 
-        # Monta a equação visualmente
         if b >= 0:
             parte_b = f"+ {b:g}x"
         else:
@@ -114,6 +173,3 @@ if st.button("Calcular", use_container_width=True):
         st.latex(
             f"{a:g}x^2 {parte_b} {parte_c} = 0"
         )
-
-        # ====================================
-        #
