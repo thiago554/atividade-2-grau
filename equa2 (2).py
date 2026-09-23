@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 
+
 # ========================================
 # CONFIGURAÇÃO DA PÁGINA
 # ========================================
@@ -13,35 +14,31 @@ st.set_page_config(
     layout="centered"
 )
 
+
 # ========================================
-# CORES E ESTILO DA ESCOLA
+# CORES E ESTILO
 # ========================================
 
 st.markdown("""
     <style>
 
-        /* Fundo principal */
         .stApp {
             background-color: #E8F5E9;
         }
 
-        /* Título principal */
         h1 {
             color: #2E7D32 !important;
             text-align: center;
         }
 
-        /* Subtítulos */
         h2, h3 {
             color: #2E7D32 !important;
         }
 
-        /* Textos */
         p, label {
             color: #1B1B1B !important;
         }
 
-        /* Botão */
         .stButton > button {
             background-color: #43A047;
             color: white;
@@ -62,7 +59,7 @@ st.markdown("""
 
 
 # ========================================
-# CABEÇALHO
+# NOME DO PROJETO
 # ========================================
 
 st.markdown(
@@ -75,18 +72,19 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown(
-    "<p style='text-align:center;'>Cores da escola: verde</p>",
-    unsafe_allow_html=True
-)
-
 
 # ========================================
 # CAMINHO DA IMAGEM
 # ========================================
 
 PASTA_APP = Path(__file__).parent
+
 CAMINHO_LOGO = PASTA_APP / "unnamed.jpg"
+
+
+# ========================================
+# MOSTRA A IMAGEM
+# ========================================
 
 if CAMINHO_LOGO.exists():
 
@@ -99,11 +97,14 @@ if CAMINHO_LOGO.exists():
         )
 
 else:
-    st.warning("A imagem unnamed.jpg não foi encontrada. ⚠️")
+
+    st.warning(
+        "A imagem unnamed.jpg não foi encontrada. ⚠️"
+    )
 
 
 # ========================================
-# TÍTULO DA CALCULADORA
+# TÍTULO
 # ========================================
 
 st.title("Equação do 2º Grau")
@@ -142,9 +143,9 @@ c = st.number_input(
 
 if st.button("Calcular", use_container_width=True):
 
-    # ========================================
-    # VERIFICA SE É REALMENTE DO 2º GRAU
-    # ========================================
+    # ====================================
+    # VERIFICA SE É EQUAÇÃO DO 2º GRAU
+    # ====================================
 
     if a == 0:
 
@@ -173,3 +174,78 @@ if st.button("Calcular", use_container_width=True):
         st.latex(
             f"{a:g}x^2 {parte_b} {parte_c} = 0"
         )
+
+
+        # ====================================
+        # CÁLCULO DO DELTA
+        # ====================================
+
+        delta = b**2 - 4*a*c
+
+        st.subheader("Cálculo do Delta")
+
+        st.latex(
+            rf"\Delta = b^2 - 4ac"
+        )
+
+        st.latex(
+            rf"\Delta = ({b:g})^2 - 4({a:g})({c:g})"
+        )
+
+        st.latex(
+            rf"\Delta = {delta:g}"
+        )
+
+
+        # ====================================
+        # VERIFICA AS RAÍZES
+        # ====================================
+
+        if delta > 0:
+
+            x1 = (-b + np.sqrt(delta)) / (2*a)
+            x2 = (-b - np.sqrt(delta)) / (2*a)
+
+            st.success("A equação possui duas raízes reais diferentes.")
+
+            st.subheader("Raízes")
+
+            st.latex(
+                rf"x_1 = \frac{{-b + \sqrt{{\Delta}}}}{{2a}}"
+            )
+
+            st.latex(
+                rf"x_1 = {x1:g}"
+            )
+
+            st.latex(
+                rf"x_2 = \frac{{-b - \sqrt{{\Delta}}}}{{2a}}"
+            )
+
+            st.latex(
+                rf"x_2 = {x2:g}"
+            )
+
+
+        elif delta == 0:
+
+            x = -b / (2*a)
+
+            st.success("A equação possui uma raiz real.")
+
+            st.subheader("Raiz")
+
+            st.latex(
+                rf"x = \frac{{-b}}{{2a}}"
+            )
+
+            st.latex(
+                rf"x = {x:g}"
+            )
+
+
+        else:
+
+            st.warning(
+                "A equação não possui raízes reais, pois o Delta é menor que zero."
+            )
